@@ -56,7 +56,7 @@ uint64_t AbsoluteToNanos(uint64_t time) {
 - (void) midiSource:(PGMidiSource *)input midiReceived:(const MIDIPacketList *)packetList {
 
 	const MIDIPacket *packet = &packetList->packet[0];
-	stringstream msg;
+	std::stringstream msg;
 	unsigned char statusByte;
 	unsigned short nBytes, curByte, msgSize;
 	unsigned long long time;

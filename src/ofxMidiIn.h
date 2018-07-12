@@ -27,25 +27,25 @@
 /// create multiple instances to connect to multiple ports
 ///
 /// *do not* create static instances as this will lead to a crash on Linux,
-/// instead create a static ofPtr and initialize it later:
+/// instead create a static std::shared_ptr and initialize it later:
 ///
 /// in .h:
 ///    class MyClass {
 ///
 ///        ...
 ///
-///        static ofPtr<ofxMidiIn> s_midiIn;
+///        static std::shared_ptr<ofxMidiIn> s_midiIn;
 ///    }
 ///
 /// in .cpp:
-///    ofPtr<ofxMidiIn> MyClass::s_midiIn;
+///    std::shared_ptr<ofxMidiIn> MyClass::s_midiIn;
 ///
 ///    ...
 ///
 ///    // initialize somewhere else
 ///    void MyClass::setup() {
 ///        if(s_midiIn == NULL) {
-///            s_midiIn = ofPtr<ofxMidiIn>(new ofxMidiIn("ofxMidi Client"));
+///            s_midiIn = std::shared_ptr<ofxMidiIn>(new ofxMidiIn("ofxMidi Client"));
 ///        }
 ///    }
 ///
@@ -54,7 +54,7 @@ class ofxMidiIn {
 public:
 
 	/// set the input client name (optional)
-	ofxMidiIn(const string name="ofxMidiIn Client");
+	ofxMidiIn(const std::string name="ofxMidiIn Client");
 	virtual ~ofxMidiIn();
 	
 /// \section Global Port Info
@@ -64,12 +64,12 @@ public:
 	
 	/// get a list of output port names
 	/// 
-	/// the vector index corresponds with the name's port number
+	/// the std::vector index corresponds with the name's port number
 	///
 	/// note: this order may change when new devices are added/removed
 	///       from the system
 	///
-	static vector<string>& getPortList();
+	static std::vector<std::string>& getPortList();
 	
 	/// get the number of output ports
 	static int getNumPorts();
@@ -78,7 +78,7 @@ public:
 	///
 	/// returns "" if number is invalid
 	///
-	static string getPortName(unsigned int portNumber);
+	static std::string getPortName(unsigned int portNumber);
 
 /// \section Connection
 	
@@ -87,7 +87,7 @@ public:
 	/// setting port = 0 will open the first available
 	///
 	bool openPort(unsigned int portNumber=0);
-	bool openPort(string deviceName);
+	bool openPort(std::string deviceName);
 	
 	/// create and connect to a virtual output port (MacOS and Linux ALSA only)
 	///
@@ -97,7 +97,7 @@ public:
 	/// note: an open virtual port ofxMidiIn object cannot see it's virtual
 	///       own virtual port when listing ports
 	///
-	bool openVirtualPort(string portName="ofxMidi Virtual Input");
+	bool openVirtualPort(std::string portName="ofxMidi Virtual Input");
 	
 	/// close the port connection
 	void closePort();
@@ -112,7 +112,7 @@ public:
 	///
 	/// returns "" if not connected
 	///
-	string getName();
+	std::string getName();
 	
 	/// returns true if connected
 	bool isOpen();
@@ -147,5 +147,5 @@ public:
 
 private:
 
-	ofPtr<ofxBaseMidiIn> midiIn;
+	std::shared_ptr<ofxBaseMidiIn> midiIn;
 };

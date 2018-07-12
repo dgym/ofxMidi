@@ -27,7 +27,7 @@ class ofxPGMidiIn;
 	bool bContinueSysex;         ///< is this packet part of a sysex message?
 	unsigned int maxMessageLen;  ///< max size of the byte buffer
 	
-	std::vector<unsigned char> message; ///< raw byte buffer
+	std::std::vector<unsigned char> message; ///< raw byte buffer
 }
 
 /// pgmidi callback
